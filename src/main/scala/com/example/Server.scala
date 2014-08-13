@@ -28,33 +28,33 @@ class Hello extends Service[HttpRequest, HttpResponse] {
       showHome(request);
     }
   }
-  
+
   def showHome(request: HttpRequest): Future[HttpResponse] = {
     val response = Response()
     response.setStatusCode(200)
     response.setContentString("Hello from Scala!")
     Future(response)
   }
-  
+
   def showDatabase(request: HttpRequest): Future[HttpResponse] = {
     val connection = getConnection
     val stmt = connection.createStatement
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
     stmt.executeUpdate("INSERT INTO ticks VALUES (now())")
-    
+
     val rs = stmt.executeQuery("SELECT tick FROM ticks")
 
     var out = ""
     while (rs.next) {
       out += "Read from DB: " + rs.getTimestamp("tick") + "\n"
     }
-    
+
     val response = Response()
     response.setStatusCode(200)
-    response.setContentString(out)    
+    response.setContentString(out)
     Future(response)
   }
-  
+
   def getConnection(): Connection = {
     val dbUri = new URI(System.getenv("DATABASE_URL"))
     val username = dbUri.getUserInfo.split(":")(0)
