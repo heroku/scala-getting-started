@@ -27,7 +27,7 @@ $ heroku open
 
 ## Documentation
 
-For more information about using Ruby on Heroku, see these Dev Center articles:
+For more information about using Scala on Heroku, see these Dev Center articles:
 
 - [Scala on Heroku](https://devcenter.heroku.com/categories/scala)
 
