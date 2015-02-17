@@ -59,7 +59,7 @@ class Hello extends Service[HttpRequest, HttpResponse] {
     val dbUri = new URI(System.getenv("DATABASE_URL"))
     val username = dbUri.getUserInfo.split(":")(0)
     val password = dbUri.getUserInfo.split(":")(1)
-    val dbUrl = "jdbc:postgresql://" + dbUri.getHost + dbUri.getPath
+    val dbUrl = s"jdbc:postgresql://${dbUri.getHost}:${dbUri.getPort}${dbUri.getPath}"
     DriverManager.getConnection(dbUrl, username, password)
   }
 }
