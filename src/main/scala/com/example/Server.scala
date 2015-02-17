@@ -1,14 +1,14 @@
 package com.example
 
+import java.net.URI
+import java.sql.{Connection, DriverManager}
+
+import com.twitter.finagle.http.Response
 import com.twitter.finagle.{Http, Service}
 import com.twitter.util.{Await, Future}
-import com.twitter.finagle.http.Response
-import java.net.InetSocketAddress
 import org.jboss.netty.handler.codec.http._
-import util.Properties
-import java.net.URI
-import java.sql.Connection
-import java.sql.DriverManager
+
+import scala.util.Properties
 
 object Server {
   def main(args: Array[String]) {
