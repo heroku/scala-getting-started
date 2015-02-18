@@ -38,21 +38,25 @@ class Hello extends Service[HttpRequest, HttpResponse] {
 
   def showDatabase(request: HttpRequest): Future[HttpResponse] = {
     val connection = getConnection
-    val stmt = connection.createStatement
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
-    stmt.executeUpdate("INSERT INTO ticks VALUES (now())")
+    try {
+      val stmt = connection.createStatement
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
+      stmt.executeUpdate("INSERT INTO ticks VALUES (now())")
 
-    val rs = stmt.executeQuery("SELECT tick FROM ticks")
+      val rs = stmt.executeQuery("SELECT tick FROM ticks")
 
-    var out = ""
-    while (rs.next) {
-      out += "Read from DB: " + rs.getTimestamp("tick") + "\n"
+      var out = ""
+      while (rs.next) {
+        out += "Read from DB: " + rs.getTimestamp("tick") + "\n"
+      }
+
+      val response = Response()
+      response.setStatusCode(200)
+      response.setContentString(out)
+      Future(response)
+    } finally {
+      connection.close()
     }
-
-    val response = Response()
-    response.setStatusCode(200)
-    response.setContentString(out)
-    Future(response)
   }
 
   def getConnection(): Connection = {
