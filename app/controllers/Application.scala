@@ -5,27 +5,18 @@ import play.api.mvc._
 import play.api.cache.Cache
 import play.api.Play.current
 
+import javax.measure.unit.SI.KILOGRAM
+import javax.measure.quantity.Mass
+import org.jscience.physics.model.RelativisticModel
+import org.jscience.physics.amount.Amount
+
 object Application extends Controller {
 
   def index = Action {
-    Ok(views.html.index("New stuff!!!! Your new application is ready."))
-  }
+    RelativisticModel.select()
+    val m = Amount.valueOf("12 GeV").to(KILOGRAM)
+    val testRelativity = s"E=mc^2: 12 GeV = $m"
 
-  def login = Action {
-    val r = (new scala.util.Random).nextInt(100000)
-    Cache.set("connected", s"${r}@gmail.com")
-    Ok(s"Welcome, ${Cache.getAs[String]("connected")}")
-  }
-
-  def test = Action { request =>
-    Cache.getAs[String]("connected") match {
-      case Some(user) => Ok("Hello " + user)
-      case None => Unauthorized("Oops, you are not connected");
-    }
-  }
-
-  def logout = Action { request =>
-    Cache.set("connected", None)
-    Ok("Bye")
+    Ok(views.html.index(testRelativity))
   }
 }
