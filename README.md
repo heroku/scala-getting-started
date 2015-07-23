@@ -1,16 +1,16 @@
-# play-getting-started
+# scala/play-getting-started
 
-A barebones Play app, which can easily be deployed to Heroku.  
+A barebones Scala app (using the Play framework), which can easily be deployed to Heroku.  
 
-This application support the [Getting Started with Play on Heroku](https://devcenter.heroku.com/articles/getting-started-with-play-on-heroku) article - check it out.
+This application support the [Getting Started with Scala/Play on Heroku](https://devcenter.heroku.com/articles/getting-started-with-scala) article - check it out.
 
 ## Running Locally
 
 Make sure you have Play and sbt installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
 
 ```sh
-$ git clone https://github.com/heroku/play-getting-started.git
-$ cd play-getting-started
+$ git clone https://github.com/heroku/scala-getting-started.git
+$ cd scala-getting-started
 $ sbt compile stage
 $ foreman start web
 ```
