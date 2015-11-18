@@ -12,7 +12,7 @@ Make sure you have Play and sbt installed.  Also, install the [Heroku Toolbelt](
 $ git clone https://github.com/heroku/scala-getting-started.git
 $ cd scala-getting-started
 $ sbt compile stage
-$ foreman start web
+$ heroku local
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
