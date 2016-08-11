@@ -25,6 +25,10 @@ $ git push heroku master
 $ heroku open
 ```
 
+or
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Documentation
 
 For more information about using Play and Scala on Heroku, see these Dev Center articles:
