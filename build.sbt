@@ -1,16 +1,15 @@
 name := """play-getting-started"""
 
-version := "1.0-SNAPSHOT"
+version := "1.1-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.13.5"
 
 libraryDependencies ++= Seq(
+  "com.h2database" % "h2" % "1.4.200",
+  caffeine,
+  guice,
   jdbc,
-  cache,
-  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
-  ws
+  ws,
 )
-
-libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _ )

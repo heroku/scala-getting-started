@@ -15,3 +15,8 @@ dist
 /RUNNING_PID
 /.settings
 hk-debug
+/.vscode
+/.bloop
+project/.bloop
+/.metals
+project/metals.sbt

@@ -1,13 +1,17 @@
 package controllers
 
+import javax.inject._
 import play.api._
-import play.api.mvc._
-import play.api.cache.Cache
-import play.api.Play.current
-
+import play.api.cache._
 import play.api.db._
+import play.api.mvc._
 
-object Application extends Controller {
+@Singleton
+class Application @Inject() (
+    database: Database,
+    cache: AsyncCacheApi,
+    val controllerComponents: ControllerComponents
+) extends BaseController {
 
   def index = Action {
     Ok(views.html.index(null))
@@ -15,7 +19,7 @@ object Application extends Controller {
 
   def db = Action {
     var out = ""
-    val conn = DB.getConnection()
+    val conn = database.getConnection()
     try {
       val stmt = conn.createStatement
 
