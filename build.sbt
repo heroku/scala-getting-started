@@ -4,12 +4,12 @@ version := "1.1-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.13.5"
+scalaVersion := "2.13.8"
 
 libraryDependencies ++= Seq(
-  "com.h2database" % "h2" % "1.4.200",
-  caffeine,
-  guice,
   jdbc,
+  caffeine,
   ws,
+  guice,
+  "org.postgresql" % "postgresql" % "42.3.6"
 )

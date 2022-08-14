@@ -1,16 +1,13 @@
 package controllers
 
 import javax.inject._
-import play.api._
-import play.api.cache._
 import play.api.db._
 import play.api.mvc._
 
 @Singleton
 class Application @Inject() (
-    database: Database,
-    cache: AsyncCacheApi,
-    val controllerComponents: ControllerComponents
+  val controllerComponents: ControllerComponents,
+  database: Database
 ) extends BaseController {
 
   def index = Action {
