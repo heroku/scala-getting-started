@@ -1,35 +1,33 @@
 package controllers
 
+import javax.inject._
 import play.api._
+import play.api.db.Database
 import play.api.mvc._
-import play.api.cache.Cache
-import play.api.Play.current
 
-import play.api.db._
+@Singleton
+class Application @Inject()(val controllerComponents: ControllerComponents, val database: Database) extends BaseController {
 
-object Application extends Controller {
-
-  def index = Action {
-    Ok(views.html.index(null))
+  def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.index())
   }
 
-  def db = Action {
-    var out = ""
-    val conn = DB.getConnection()
-    try {
-      val stmt = conn.createStatement
+  def db(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    // In this getting started app, we don't use a custom execution context to keep the code and configuration simple.
+    // For real-world apps, consult the Play documentation on how to configure custom contexts and how to use them:
+    // https://www.playframework.com/documentation/2.8.19/AccessingAnSQLDatabase#Using-a-CustomExecutionContext
+    database.withConnection { connection =>
+      val statement = connection.createStatement()
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
+      statement.executeUpdate("INSERT INTO ticks VALUES (now())")
 
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
-      stmt.executeUpdate("INSERT INTO ticks VALUES (now())")
-
-      val rs = stmt.executeQuery("SELECT tick FROM ticks")
-
-      while (rs.next) {
-        out += "Read from DB: " + rs.getTimestamp("tick") + "\n"
+      val output = new StringBuilder();
+      val resultSet = statement.executeQuery("SELECT tick FROM ticks")
+      while (resultSet.next()) {
+        output.append("Read from DB: " + resultSet.getTimestamp("tick") + "\n")
       }
-    } finally {
-      conn.close()
+
+      Ok(output.toString())
     }
-    Ok(out)
   }
 }
