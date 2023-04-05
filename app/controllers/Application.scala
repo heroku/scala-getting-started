@@ -4,12 +4,22 @@ import javax.inject._
 import play.api._
 import play.api.db.Database
 import play.api.mvc._
+import org.jscience.physics.amount.Amount
+import org.jscience.physics.model.RelativisticModel
+import javax.measure.unit.SI
 
 @Singleton
 class Application @Inject()(val controllerComponents: ControllerComponents, val database: Database) extends BaseController {
 
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
+  }
+
+  def convert(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    RelativisticModel.select()
+    val energy = Amount.valueOf("12 GeV");
+
+    Ok("E=mc^2: " + energy + " = " + energy.to(SI.KILOGRAM))
   }
 
   def db(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
