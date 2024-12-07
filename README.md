@@ -1,4 +1,4 @@
-# Scala: Getting Started
+# Scala Getting Started
 
 A barebones Scala app, which can easily be deployed to Heroku.
 
