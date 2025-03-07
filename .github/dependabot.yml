@@ -1,6 +1,5 @@
 version: 2
-updates:
-  - package-ecosystem: "maven"
-    directory: "/"
-    schedule:
-      interval: "monthly"
+# Our 3PP enforcement tooling requires that each repo has a Dependabot config,
+# however, Dependabot doesn't yet support sbt, so this is empty for now. See:
+# https://github.com/dependabot/dependabot-core/issues/352
+updates: []
