@@ -15,7 +15,7 @@ class Application @Inject()(val controllerComponents: ControllerComponents, val 
   def db(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     // In this getting started app, we don't use a custom execution context to keep the code and configuration simple.
     // For real-world apps, consult the Play documentation on how to configure custom contexts and how to use them:
-    // https://www.playframework.com/documentation/2.8.19/AccessingAnSQLDatabase#Using-a-CustomExecutionContext
+    // https://www.playframework.com/documentation/latest/AccessingAnSQLDatabase#Using-a-CustomExecutionContext
     database.withConnection { connection =>
       val statement = connection.createStatement()
       statement.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
